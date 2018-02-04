@@ -1,0 +1,24 @@
+.thumbnail img {
+    width: 100%;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .btn {
+    margin-bottom: 0.6em;
+}
+
+.delete-form {
+    display: inline;
+}
+
+.comment-block {
+    margin: 10px 0;
+}
+
+.form-block {
+    width: 30%; 
+    margin: 25px auto;
+}

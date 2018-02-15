@@ -24,8 +24,6 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-// seedDB();
-
 // PASSPORT configuration
 app.use(require("express-session")({
     secret: "Just got one more than Shaq. You can take that to the bank",

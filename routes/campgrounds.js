@@ -65,6 +65,12 @@ router.get("/:id/edit", middleware.checkCampgroundOwner, function(req, res) {
 // update the edited campground
 router.put("/:id", middleware.checkCampgroundOwner, function(req, res) {
     geocoder.geocode(req.body.location, function(err, data) {
+        console.log(data);
+        if (!data) {
+            req.flash("error", "Error: cannot find location");
+            req.redirect("back");
+            return;
+        }
         var newCampground = req.body.campground;
         newCampground.lat = data.results[0].geometry.location.lat;
         newCampground.lng = data.results[0].geometry.location.lng;

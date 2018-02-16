@@ -26,6 +26,11 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
     newCampground.author = newAuthor;
     
     geocoder.geocode(req.body.location, function(err, data) {
+        if (!data || data.results.length === 0) {
+            req.flash("error", "Error: cannot find location");
+            res.redirect("back");
+            return;
+        }
         var lat = data.results[0].geometry.location.lat;
         var lng = data.results[0].geometry.location.lng;
         var location = data.results[0].formatted_address;
@@ -39,7 +44,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
                 res.redirect("/");
             } else {
                 req.flash("success", "Successfully Created New Campground");
-                res.redirect("/campgrounds");
+                res.redirect("/campgrounds/" + campground._id);
             }
         });
     });

@@ -18,7 +18,7 @@
                     <h4 class="pull-right">$<%= campground.price %>/night</h4>
                     <h4><a><%= campground.name %></a></h4>
                     <p><%= campground.description %></p>
-                    <p><em>Submitted By <%= campground.author.username %></em></p>
+                    <p><em>Submitted By <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></p>
                     <!-- show buttons on if owned by currentUser -->
                     <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
                         <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
@@ -37,7 +37,7 @@
                     <div class="row comment-block">
                         <div class="col-md-12">
                             <strong><%= comment.author.username %></strong>
-                            <p class="pull-right">10 days ago</p>
+                            <p class="pull-right"><%= moment(comment.createdAt).fromNow() %></p>
                             <p><%= comment.text %></p>
                             <% if (currentUser && comment.author.id.equals(currentUser._id)) { %> 
                                 <a class="btn btn-xs btn-warning" 

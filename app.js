@@ -11,6 +11,9 @@ var express        = require("express"),
     User           = require("./models/user"),
     seedDB         = require("./seeds");
     
+// setup momentJS
+app.locals.moment = require("moment");
+    
 // setup routes
 var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes    = require("./routes/comments"),

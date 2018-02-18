@@ -31,7 +31,10 @@
                   <li><a href="/login">Login</a></li>
                   <li><a href="/register">Sign Up</a></li>
                 <% } else { %>
-                  <li><a href="#">Logged In As <%= currentUser.username %></a></li>
+                  <% if (currentUser.isAdmin) { %>
+                    <li><a href="#">ADMINISTRATOR MODE</a></li>
+                  <% } %>
+                  <li><a href="/user/<%= currentUser.id %>">Logged In As <%= currentUser.username %></a></li>
                   <li><a href="/logout">Logout</a></li>
                 <% } %>
               </ul>

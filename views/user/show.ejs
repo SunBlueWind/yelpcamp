@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1><%= user.username %></h1>
+            <div class="thumbnail">
+                <img src="<%= user.avatar %>">
+            </div>
+            <div class="caption">
+                <p><a href="mailto:<%= user.email %>"><%= user.email %></a></p>
+                <p>Joined YelpCamp <em><%= moment(user.joinedAt).fromNow() %></em></p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h2><%= user.username %>'s campgrounds</h2>
+            <% campgrounds.forEach(function(campground) { %>
+                <div class="thumbnail">
+                    <h4 class="caption"><a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a></h4>
+                    <img src="<%= campground.image %>" alt="campground image">
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

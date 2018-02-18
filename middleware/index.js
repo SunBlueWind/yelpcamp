@@ -17,7 +17,7 @@ middleware.checkCampgroundOwner = function(req, res, next) {
             if (err || !campground) {
                 req.flash("error", "Something Went Wrong");
                 res.redirect("/campgrounds");
-            } else if (campground.author.id.equals(req.user._id)) {
+            } else if (campground.author.id.equals(req.user._id) || req.user.isAdmin) {
                 next();
             } else {
                 req.flash("error", "You Don't Have Permission To Do That");
@@ -36,7 +36,7 @@ middleware.checkCommentOwner = function(req, res, next) {
             if (err || !comment) {
                 req.flash("error", "Something Went Wrong");
                 res.redirect("/campgrounds");
-            } else if (comment.author.id.equals(req.user._id)) {
+            } else if (comment.author.id.equals(req.user._id) || req.user.isAdmin) {
                 next();
             } else {
                 req.flash("error", "You Don't Have Permission To Do That");

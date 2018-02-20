@@ -6,14 +6,28 @@ var express    = require("express"),
 
 // campgrounds index page
 router.get("/", function(req, res) {
-    Campground.find({}, function(err, campgrounds){
-        if (err) {
-            req.flash("error", "Something Went Wrong");
-            res.redirect("/campgrounds");
-        } else {
-            res.render("campgrounds/index", {campgrounds: campgrounds});
-        }
-    });
+    if (req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Campground.find({ "name": regex }, function(err, campgrounds){
+            if (err) {
+                req.flash("error", "Something Went Wrong");
+                res.redirect("/campgrounds");
+            } else if (campgrounds.length < 1) {
+                res.render("campgrounds/index", {campgrounds: campgrounds, noMatch: true})
+            } else {
+                res.render("campgrounds/index", {campgrounds: campgrounds, noMatch: false});
+            }
+        });
+    } else {
+        Campground.find({}, function(err, campgrounds){
+            if (err) {
+                req.flash("error", "Something Went Wrong");
+                res.redirect("/campgrounds");
+            } else {
+                res.render("campgrounds/index", {campgrounds: campgrounds, noMatch: false});
+            }
+        });
+    }
 });
 
 // create new campground
@@ -117,5 +131,10 @@ router.get("/:id", function(req, res) {
         }
     });
 });
+
+// helper to handle fuzzy search
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

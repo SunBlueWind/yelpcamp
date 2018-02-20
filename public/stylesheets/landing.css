@@ -16,6 +16,10 @@ body {
     font-size: 4.0em;
 }
 
+.landing-header .form-inline {
+    margin-top: 1.0em;
+}
+
 .slideshow {
     position: fixed;
     height: 100%;

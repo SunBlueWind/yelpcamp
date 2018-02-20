@@ -13,7 +13,10 @@ var express        = require("express"),
     
 // setup momentJS
 app.locals.moment = require("moment");
-    
+
+// setup config variables
+require("dotenv").config();
+
 // setup routes
 var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes    = require("./routes/comments"),

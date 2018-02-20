@@ -39,7 +39,7 @@
                 <% campground.comments.forEach(function(comment) { %>
                     <div class="row comment-block">
                         <div class="col-md-12">
-                            <strong><%= comment.author.username %></strong>
+                            <a href="/user/<%= comment.author.id %>"><strong><%= comment.author.username %></strong></a>
                             <p class="pull-right"><%= moment(comment.createdAt).fromNow() %></p>
                             <p><%= comment.text %></p>
                             <% if (currentUser && (comment.author.id.equals(currentUser._id) || currentUser.isAdmin)) { %> 

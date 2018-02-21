@@ -10,6 +10,9 @@
             <div class="caption">
                 <p><a href="mailto:<%= user.email %>"><%= user.email %></a></p>
                 <p>Joined YelpCamp <em><%= moment(user.joinedAt).fromNow() %></em></p>
+                <% if (currentUser && currentUser.id === user.id) { %>
+                <a class="btn btn-md btn-primary" href="/user/<%= user.id %>/edit">Edit Your Profile</a>
+                <% } %>
             </div>
         </div>
         <div class="col-md-8">

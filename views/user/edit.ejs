@@ -1,13 +1,13 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center">Sign Up</h1>
+        <h1 style="text-align: center">Edit <%= user.username %>'s Profile</h1>
         
         <div class="form-block">
-            <form action="/register" method="POST">
+            <form action="/user/<%= user.id %>?_method=PUT" method="POST">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="username" placeholder="username" required>
+                    <input class="form-control" type="text" name="username" value="<%= user.username %>" readonly>
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="password" name="password" placeholder="password" required>
@@ -16,21 +16,21 @@
                     <input class="form-control" type="password" name="passwordConfirm" placeholder="confirm your password" required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="email" placeholder="email" required>
+                    <input class="form-control" type="text" name="email" value="<%= user.email %>" placeholder="email" required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="avatar" placeholder="avatar url (optional)">
+                    <input class="form-control" type="text" name="avatar" value="<%= user.avatar %>" placeholder="avatar url (optional)">
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="password" name="adminCode" placeholder="admin code">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Update</button>
                 </div>
             </form>
-            <a class="btn btn-default" href="/campgrounds">Go Back</a>
+            <a class="btn btn-default" href="/user/<%= user.id %>">Go Back</a>
         </div>
     </div>
 </div>
 
-<% include partials/footer %>
+<% include ../partials/footer %>

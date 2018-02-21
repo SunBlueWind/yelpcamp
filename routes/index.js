@@ -2,7 +2,8 @@ var express    = require("express"),
     router     = express.Router(),
     passport   = require("passport"),
     User       = require("../models/user"),
-    Campground = require("../models/campground");
+    Campground = require("../models/campground"),
+    middleware = require("../middleware");
 
 // landing page
 router.get("/", function(req, res) {
@@ -16,6 +17,9 @@ router.get("/register", function(req, res) {
 
 // handle sign up logic
 router.post("/register", function(req, res) {
+    if (req.body.password !== req.body.passwordConfirm) {
+        return res.render("register", {error: "Passwords Do Not Match"});
+    }
     var newUser = new User({
         username: req.body.username,
         email: req.body.email,
@@ -23,7 +27,7 @@ router.post("/register", function(req, res) {
     });
     // set default avatar
     if (req.body.avatar === "") {
-        newUser.avatar = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+        newUser.avatar = "http://cdn.onlinewebfonts.com/svg/img_181369.png";
     }
     if (req.body.adminCode === process.env.ADMINCODE) {
         newUser.isAdmin = true;
@@ -71,6 +75,61 @@ router.get("/user/:id", function(req, res) {
                     req.flash("error", "Cannot Find This User's Campgrounds");
                 }
                 res.render("user/show", {user: user, campgrounds: campgrounds});
+            });
+        }
+    });
+});
+
+router.get("/user/:id/edit", middleware.checkUser, function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err || !user) {
+            req.flash("error", "Something Went Wrong");
+            res.redirect("back");
+        } else {
+            res.render("user/edit", {user: user});
+        }
+    })
+});
+
+// update user profile
+router.put("/user/:id", middleware.checkUser, function(req, res) {
+    if (req.body.password !== req.body.passwordConfirm) {
+        req.flash("error", "Passwords Do Not Match");
+        return res.redirect("back");
+    }
+    User.findById(req.params.id, function(err, user) {
+        if (err || !user) {
+            req.flash("error", "Something Went Wrong");
+            res.redirect("/campgrounds");
+        } else {
+            user.email = req.body.email;
+            
+            if (req.body.avatar === "") {
+                user.avatar = "http://cdn.onlinewebfonts.com/svg/img_181369.png";
+            } else {
+                user.avatar = req.body.avatar;
+            }
+            
+            if (req.body.adminCode === process.env.ADMINCODE) {
+                user.isAdmin = true;
+            } else {
+                user.isAdmin = false;
+            }
+            
+            user.setPassword(req.body.password, function(err, user) {
+                if (err) {
+                    req.flash("error", err.message);
+                    res.redirect("/campgrounds");
+                } else {
+                    user.save(function(err) {
+                        if (err) {
+                            req.flash("error", err.message);
+                            res.redirect("/campgrounds");
+                        } else {
+                            res.redirect("/user/" + req.params.id);
+                        }
+                    });
+                }
             });
         }
     });

@@ -49,4 +49,18 @@ middleware.checkCommentOwner = function(req, res, next) {
     }
 };
 
+middleware.checkUser = function(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.id === req.params.id) {
+            next();
+        } else {
+            req.flash("error", "You Are Only Allowed to Update Your Own Profile");
+            res.redirect("/user/" + req.user.id);
+        }
+    } else {
+        req.flash("error", "Please Login First");
+        res.redirect("/login");
+    }
+};
+
 module.exports = middleware;

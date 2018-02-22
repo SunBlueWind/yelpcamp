@@ -12,7 +12,7 @@ router.get("/", function(req, res) {
 
 // sign up page
 router.get("/register", function(req, res) {
-    res.render("register");
+    res.render("register", {page: "register"});
 });
 
 // handle sign up logic
@@ -45,7 +45,7 @@ router.post("/register", function(req, res) {
 
 // login page
 router.get("/login", function(req, res) {
-    res.render("login");
+    res.render("login", {page: "login"});
 });
 
 // handle login logic
@@ -74,7 +74,7 @@ router.get("/user/:id", function(req, res) {
                 if (err) {
                     req.flash("error", "Cannot Find This User's Campgrounds");
                 }
-                res.render("user/show", {user: user, campgrounds: campgrounds});
+                res.render("user/show", {user: user, campgrounds: campgrounds, page: "user"});
             });
         }
     });

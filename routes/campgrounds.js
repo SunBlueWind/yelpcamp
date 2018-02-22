@@ -13,9 +13,9 @@ router.get("/", function(req, res) {
                 req.flash("error", "Something Went Wrong");
                 res.redirect("/campgrounds");
             } else if (campgrounds.length < 1) {
-                res.render("campgrounds/index", {campgrounds: campgrounds, noMatch: true})
+                res.render("campgrounds/index", {campgrounds: campgrounds, noMatch: true, page: "campgrounds"})
             } else {
-                res.render("campgrounds/index", {campgrounds: campgrounds, noMatch: false});
+                res.render("campgrounds/index", {campgrounds: campgrounds, noMatch: false, page: "campgrounds"});
             }
         });
     } else {
@@ -24,7 +24,7 @@ router.get("/", function(req, res) {
                 req.flash("error", "Something Went Wrong");
                 res.redirect("/campgrounds");
             } else {
-                res.render("campgrounds/index", {campgrounds: campgrounds, noMatch: false});
+                res.render("campgrounds/index", {campgrounds: campgrounds, noMatch: false, page: "campgrounds"});
             }
         });
     }

@@ -1,13 +1,10 @@
-.thumbnail img {
-    width: 100%;
+body {
+    padding-top: 5.0em;
 }
 
-.thumbnail {
-    padding: 0;
-}
-
-.thumbnail .btn {
-    margin-bottom: 0.6em;
+.card .card-img-top img {
+    max-width: 100%;
+    height: auto;
 }
 
 .delete-form {
@@ -21,6 +18,17 @@
 .form-block {
     width: 30%; 
     margin: 25px auto;
+}
+
+#write-comment {
+    padding: 1.5em;
+    border-left: 5px solid #00C851;
+}
+
+#edit-comment {
+    padding: 1.5em;
+    border-left: 5px solid #ffbb33;
+    margin-top: 15px;
 }
 
 /* Google Maps */

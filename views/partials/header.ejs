@@ -3,7 +3,7 @@
     <head>
         <title>YelpCamp</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.0/font/css/open-iconic-bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
     <body>
@@ -19,22 +19,26 @@
               <a class="nav-item nav-link <%= typeof(page) !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>" href="/campgrounds">Home</a>
               <form class="form-inline my-2 my-lg-0" action="/campgrounds" method="GET">
                 <input class="form-control ml-sm-2" type="text" name="search" placeholder="Search Campgrounds" aria-label="Search">
-                <button class="btn btn-outline-success m-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-success m-2 my-sm-0" type="submit">Search <i class="fa fa-search" aria-hidden="true"></i></button>
               </form>
             </div>
             
             <div class="navbar-nav ml-auto">
               <% if (!currentUser) { %>
-                <a href="/login" class="nav-item nav-link <%= typeof(page) !== 'undefined' && page === 'login' ? 'active' : '' %>">Login</a>
-                <a href="/register" class="nav-item nav-link <%= typeof(page) !== 'undefined' && page === 'register' ? 'active' : '' %>">Sign Up</a>
+                <a href="/login" class="nav-item nav-link <%= typeof(page) !== 'undefined' && page === 'login' ? 'active' : '' %>">
+                  Login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </a>
+                <a href="/register" class="nav-item nav-link <%= typeof(page) !== 'undefined' && page === 'register' ? 'active' : '' %>">
+                  Sign Up <i class="fa fa-user-plus" aria-hidden="true"></i>
+                </a>
               <% } else { %>
                 <% if (currentUser.isAdmin) { %>
                   <a href="#" class="nav-item nav-link">ADMINISTRATOR MODE</a>
                 <% } %>
                   <a href="/user/<%= currentUser.id %>" class="nav-item nav-link <%= typeof(page) !== 'undefined' && page === 'user' ? 'active' : '' %>">
-                    Logged In As <%= currentUser.username %>
+                    Logged In As <%= currentUser.username %> <i class="fa fa-user-circle" aria-hidden="true"></i>
                   </a>
-                <a href="/logout" class="nav-item nav-link">Logout</a>
+                <a href="/logout" class="nav-item nav-link">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
               <% } %>
             </div> <!-- navbar-nav -->
           </div> <!-- navbarSupportedContent -->

@@ -4,23 +4,26 @@
     <div class="row">
         <div class="col-md-4">
             <h1><%= user.username %></h1>
-            <div class="thumbnail">
-                <img src="<%= user.avatar %>">
-            </div>
-            <div class="caption">
-                <p><a href="mailto:<%= user.email %>"><%= user.email %></a></p>
-                <p>Joined YelpCamp <em><%= moment(user.joinedAt).fromNow() %></em></p>
-                <% if (currentUser && currentUser.id === user.id) { %>
-                <a class="btn btn-md btn-primary" href="/user/<%= user.id %>/edit">Edit Your Profile</a>
-                <% } %>
+            <div class="card">
+                <img class="card-img-top" src="<%= user.avatar %>" alt="User Avatar">
+            
+                <div class="card-body">
+                    <p class="card-link"><a href="mailto:<%= user.email %>"><%= user.email %></a></p>
+                    <p class="card-text text-muted">Joined YelpCamp <em><%= moment(user.joinedAt).fromNow() %></em></p>
+                    <% if (currentUser && currentUser.id === user.id) { %>
+                    <a class="btn btn-md btn-primary" href="/user/<%= user.id %>/edit">
+                        Edit Your Profile <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </a>
+                    <% } %>
+                </div>
             </div>
         </div>
         <div class="col-md-8">
-            <h2><%= user.username %>'s campgrounds</h2>
+            <h3><%= user.username %>'s campgrounds</h3>
             <% campgrounds.forEach(function(campground) { %>
-                <div class="thumbnail">
-                    <h4 class="caption"><a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a></h4>
-                    <img src="<%= campground.image %>" alt="campground image">
+                <div class="card mt-3">
+                    <h4 class="card-title campground-card-title"><a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a></h4>
+                    <img class="card-img" src="<%= campground.image %>" alt="campground image">
                 </div>
             <% }) %>
         </div>

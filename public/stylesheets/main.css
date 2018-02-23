@@ -1,5 +1,5 @@
 body {
-    padding-top: 5.0em;
+    margin-top: 5.0em;
     height: 100%;
 }
 
@@ -10,9 +10,16 @@ html {
 
 footer {
     padding: 1.0em 0 0.5em;
-    margin-top: 2.0em;
     bottom: 0;
-    position: relative;
+    position: fixed;
+    width: 100%;
+    height: 50px;
+}
+
+.content {
+    padding-bottom: 60px;
+    min-height: 100%;
+    margin: 0 auto -50px;
 }
 
 .card .card-img-top img {

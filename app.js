@@ -15,7 +15,7 @@ var express        = require("express"),
 app.locals.moment = require("moment");
 
 // setup config variables
-require("dotenv").config();
+//require("dotenv").config();
 
 // setup routes
 var campgroundRoutes = require("./routes/campgrounds"),

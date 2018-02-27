@@ -28,8 +28,31 @@
                             Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
                         <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-sm btn-danger">Delete <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            <button type="button" name="deleteCampground" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#campgroundDeleteWarning">
+                                Delete <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </button>
                         </form>
+                        
+                        <!-- modal -->
+                        <div class="modal fade" id="campgroundDeleteWarning" tabindex="-1" role="dialog" aria-labelledby="campgroundDeleteWarning" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">Are you sure you want to delete "<%= campground.name %>"?</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <em class="text-muted">Warning: This action is irreversible</em>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Go Back</button>
+                                        <button type="button" class="btn btn-sm btn-danger" id="modalDeleteBtn">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- modal -->
                     <% } %>
                 </div>
             </div> <!-- card -->
@@ -116,8 +139,22 @@
     </div> <!-- row -->
 </div>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
 <script>
-  function initMap() {
+$('button[name="deleteCampground"]').on('click', function(e) {
+  var $form = $(this).closest('form');
+  e.preventDefault();
+  $('#campgroundDeleteWarning').modal({
+      backdrop: 'static',
+      keyboard: false
+    })
+    .one('click', '#modalDeleteBtn', function(e) {
+      $form.trigger('submit');
+    });
+});
+    
+function initMap() {
     var lat = <%= campground.lat %>;
     var lng = <%= campground.lng %>;
     var center = {lat: lat, lng: lng };
@@ -141,7 +178,7 @@
     marker.addListener('click', function() {
       infowindow.open(map, marker);
     });
-  }
+}
 </script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-VDRx3WZupLUFG7oXU_RZI5iUaTp1UnI&callback=initMap"></script>

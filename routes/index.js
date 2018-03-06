@@ -12,6 +12,10 @@ router.get("/", function(req, res) {
 
 // sign up page
 router.get("/register", function(req, res) {
+    if (req.isAuthenticated()) {
+        req.flash('error', 'You Are Already Logged In.');
+        return res.redirect('/campgrounds');
+    }
     res.render("register", {page: "register"});
 });
 
@@ -45,6 +49,10 @@ router.post("/register", function(req, res) {
 
 // login page
 router.get("/login", function(req, res) {
+    if (req.isAuthenticated()) {
+        req.flash('error', 'You Are Already Logged In.');
+        return res.redirect('/campgrounds');
+    }
     res.render("login", {page: "login"});
 });
 
